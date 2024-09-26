@@ -27,7 +27,8 @@ services:
     entrypoint: []
     command: >
       bash -c "asreview auth-tool create-db
-      && gunicorn -w ${WORKERS} -b \"0.0.0.0:5001\" \"asreview.webapp.app:create_app()\""
+      && gunicorn -w ${WORKERS} -b \"0.0.0.0:5001\" \"asreview.webapp.app:create_app()\" --project-folder /project_folder"
+
 
   server:
     image: nginx

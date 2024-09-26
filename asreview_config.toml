@@ -12,6 +12,11 @@ SECRET_KEY = "my_very_secret_key"
 SESSION_COOKIE_SECURE = true
 REMEMBER_COOKIE_SECURE = true
 
+# Path for ASReview project data storage
+PROJECT_DATA_DIR = "/project_folder"  # Ensure this path matches the Docker volume
+
+# You can also specify a log file location for troubleshooting:
+LOG_FILE = "/project_folder/asreview_log.log"
 
 # Authentication
 # ==============
