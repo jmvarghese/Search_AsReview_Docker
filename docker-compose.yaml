@@ -6,38 +6,31 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "5002:5002"  # Ensure the search_app is accessible on port 5002
+      - "5002:5002"
     env_file:
       - .env
     volumes:
       - .:/app:ro
-      - ./uploads:/app/uploads  # Map uploads directory to a writable location
-    command: python app_AI.py  # Adjust the command as needed for the search app
+      - ./uploads:/app/uploads
 
   asreview:
     image: "ghcr.io/asreview/asreview:v1.6.2"
     volumes:
-      - ${HOME}/.asreview:/project_folder  # Map user's home directory for ASReview files
+      - ${HOME}/Documents/Search_AsReview_Docker/project_folder:/project_folder  # Bind mount for persistent data
       - ./asreview_config.toml:/app/asreview_config.toml
     environment:
       - ASREVIEW_LAB_API_URL=/
       - ASREVIEW_LAB_CONFIG_PATH=/app/asreview_config.toml
+      - ASREVIEW_PATH=/project_folder  # Set ASREVIEW_PATH for project folder
     ports:
-      - "5001:5001"  # Change to use port 5001
-    entrypoint: []
-    command: >
-      bash -c "asreview auth-tool create-db
-      && gunicorn -w ${WORKERS} -b \"0.0.0.0:5001\" \"asreview.webapp.app:create_app()\" --project-folder /project_folder"
-
+      - "5001:5001"
+    entrypoint: /bin/sh -c "mkdir -p /project_folder && exec asreview lab --port 5001 --host 0.0.0.0"
 
   server:
     image: nginx
     ports:
-      - "8080:80"  # Keep the nginx server on port 8080
+      - "8080:80"
     volumes:
       - ./asreview.conf:/etc/nginx/nginx.conf
     depends_on:
       - asreview
-
-volumes:
-  project-folder:
