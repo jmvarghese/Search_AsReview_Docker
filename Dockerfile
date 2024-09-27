@@ -8,13 +8,13 @@ WORKDIR /app
 RUN apt-get update && \
 	apt-get install -y libhdf5-dev
 
-# Copy the requirements.txt file into the container
+# Copy the requirements.txt file into the container before the rest of the app
 COPY requirements.txt .
 
 # Install the Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy all files from the current directory into the container
+# Copy the rest of the app files
 COPY . .
 
 # Create the uploads directory and set the correct permissions
