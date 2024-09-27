@@ -1,18 +1,17 @@
-# Use the official Python image from the Docker Hub
-FROM python:3.11.9-bookworm
+# Use a Python image with TensorFlow pre-installed
+FROM tensorflow/tensorflow:2.16.1
 
 # Set the working directory
 WORKDIR /app
 
 # Install system dependencies
-RUN apt-get update && \
-	apt-get install -y libhdf5-dev
+RUN apt-get update && apt-get install -y libhdf5-dev
 
-# Copy the requirements.txt file into the container before the rest of the app
+# Copy the requirements.txt file into the container
 COPY requirements.txt .
 
-# Install the Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Install remaining Python dependencies with --ignore-installed
+RUN pip install --no-cache-dir --ignore-installed -r requirements.txt
 
 # Copy the rest of the app files
 COPY . .
