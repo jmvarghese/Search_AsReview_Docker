@@ -432,6 +432,7 @@ def generate_pdf_route():
 @app.route('/start_asreview', methods=['POST'])
 def start_asreview():
 	try:
+		subprocess.Popen(["asreview", "lab", "--port", "5001"])
 		return redirect("http://localhost:5001/")
 	except Exception as e:
 		return str(e)

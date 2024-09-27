@@ -10,13 +10,13 @@ services:
     env_file:
       - .env
     volumes:
-      - .:/app:ro
+      - .:/app
       - ./uploads:/app/uploads
 
   asreview:
     image: "ghcr.io/asreview/asreview:v1.6.2"
     volumes:
-      - ${HOME}/Documents/Search_AsReview_Docker/project_folder:/project_folder  # Bind mount for persistent data
+      - ${USERPROFILE}/Documents/Search_AsReview_Docker/project_folder:/project_folder  # Bind mount for persistent data
       - ./asreview_config.toml:/app/asreview_config.toml
     environment:
       - ASREVIEW_LAB_API_URL=/
