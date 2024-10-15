@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   search_app:
     build:
@@ -14,9 +12,9 @@ services:
       - ./uploads:/app/uploads
 
   asreview:
-    image: "ghcr.io/asreview/asreview:v1.6.2"
+    image: "joshmvarghese/my_asreview:latest"
     volumes:
-      - ${HOME}/Documents/Search_AsReview_Docker/project_folder:/project_folder  # Bind mount for persistent data
+      - ${USERPROFILE}/Documents/Search_AsReview_Docker/project_folder:/project_folder  # Bind mount for persistent data
       - ./asreview_config.toml:/app/asreview_config.toml
     environment:
       - ASREVIEW_LAB_API_URL=/

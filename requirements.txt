@@ -11,5 +11,5 @@ nltk==3.6.3
 sumy==0.11
 cloudscraper==1.2.71
 jsonify==0.5
-sentence-transformers==3.1.1
-asreview==1.6.2
+sentence-transformers==3.1.0
+asreview[all]
