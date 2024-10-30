@@ -14,15 +14,15 @@ services:
   asreview:
     image: "joshmvarghese/my_asreview:latest"
     volumes:
-      - ${USERPROFILE}/Documents/Search_AsReview_Docker/project_folder:/project_folder  # Bind mount for persistent data
+      - ./uploads:/app/uploads  # Change this line to match the search_app uploads directory
       - ./asreview_config.toml:/app/asreview_config.toml
     environment:
       - ASREVIEW_LAB_API_URL=/
       - ASREVIEW_LAB_CONFIG_PATH=/app/asreview_config.toml
-      - ASREVIEW_PATH=/project_folder  # Set ASREVIEW_PATH for project folder
+      - ASREVIEW_PATH=/app/uploads  # Update ASREVIEW_PATH to the new uploads directory
     ports:
       - "5001:5001"
-    entrypoint: /bin/sh -c "mkdir -p /project_folder && exec asreview lab --port 5001 --host 0.0.0.0"
+    entrypoint: /bin/sh -c "mkdir -p /app/uploads && exec asreview lab --port 5001 --host 0.0.0.0"
 
   server:
     image: nginx

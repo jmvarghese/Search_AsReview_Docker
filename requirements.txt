@@ -1,7 +1,7 @@
 certifi==2024.2.2
 flask==3.0.3
 werkzeug==3.0.3
-requests==2.32.1
+requests==2.27.1
 biopython==1.83
 Bio==1.7.1
 pandas==2.2.2
@@ -11,5 +11,4 @@ nltk==3.6.3
 sumy==0.11
 cloudscraper==1.2.71
 jsonify==0.5
-sentence-transformers==3.1.0
 asreview[all]

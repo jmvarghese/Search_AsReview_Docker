@@ -1,17 +1,15 @@
 # Use a Python image with TensorFlow pre-installed
-FROM tensorflow/tensorflow:2.16.1
+FROM python:3.11-buster
 
 # Set the working directory
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y libhdf5-dev
-
 # Copy the requirements.txt file into the container
 COPY requirements.txt .
 
-# Install remaining Python dependencies with --ignore-installed
-RUN pip install --no-cache-dir --ignore-installed -r requirements.txt
+# Update pip and install remaining Python dependencies with --ignore-installed
+RUN pip install --no-cache-dir --no-use-pep517 --upgrade pip && \
+    pip install --no-cache-dir --ignore-installed --trusted-host pypi.org --trusted-host files.pythonhosted.org -r requirements.txt
 
 # Copy the rest of the app files
 COPY . .
